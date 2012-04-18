@@ -1,0 +1,16 @@
+{
+  "name": "yourls",
+  "description": "A yourls API library for Node.JS",
+  "tags": ["url", "yourls", "shortner", "util"],
+  "version": "0.1.0",
+  "author": "Gabriel Preston <gpreston@gmail.com>",
+  "contributors": [
+    { "name": "Gabriel Preston", "email": "gpreston@gmail.com" }
+  ],
+  "main": "./yourls",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/gabrielpreston/node-yourls.git"
+  },
+  "engines": { "node": ">= 0.4.0" }
+}
