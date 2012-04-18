@@ -14,9 +14,9 @@ var http = require('http');
 
 /**
  * The main yourls constructor, takes the yourls api url, api token and additional options
- * @param {String} yourls_url	The URL of the Yourls service being used
- * @param {String} api_token	The users API token
- * @param {Object} options		Optional options
+ * @param {String} yourls_url The URL of the Yourls service being used
+ * @param {String} api_token  The users API token
+ * @param {Object} options    Optional options
  */
 var yourls = function(yourls_url, api_token, options) {
 	// Set default options
@@ -37,8 +37,8 @@ var yourls = function(yourls_url, api_token, options) {
 /**
  * Generates the URL object to be passed to the HTTP request for a specific
  * API method call
- * @param	{Object} query	The query object
- * @return	{Object}		The URL object for this request
+ * @param  {Object} query The query object
+ * @return {Object}       The URL object for this request
  */
 yourls.prototype._generateNiceUrl = function(query) {
 	var result = url.parse(url.format({
@@ -55,9 +55,9 @@ yourls.prototype._generateNiceUrl = function(query) {
 
 /**
  * Function to do a HTTP Get request with the current query
- * @param	{Object}	request_query	The current query object
- * @param	{Function}	cb				The callback function for the returned data
- * @return	{void}
+ * @param  {Object}   request_query The current query object
+ * @param  {Function} cb            The callback function for the returned data
+ * @return {void}
  */
 yourls.prototype._doRequest = function(request_query, cb) {
 	// Pass the requested URL as an object to the get request
@@ -83,9 +83,9 @@ yourls.prototype._doRequest = function(request_query, cb) {
 
 /**
  * Request to shorten one long url
- * @param	{String}	longUrl	The URL to be shortened
- * @param	{Function}	cb		The callback function with the results
- * @return	{void}
+ * @param  {String}   longUrl The URL to be shortened
+ * @param  {Function} cb      The callback function with the results
+ * @return {void}
  */
 yourls.prototype.shorten = function(longUrl, cb) {
 	var query = {
@@ -100,10 +100,10 @@ yourls.prototype.shorten = function(longUrl, cb) {
 
 /**
  * Request to shorten one long url and return a vanity url
- * @param	{String}	longUrl		The URL to be shortened
- * @param	{String}	vanityName	The requested vanity url
- * @param	{Function}	cb			The callback function with the results
- * @return	{void}
+ * @param  {String}   longUrl    The URL to be shortened
+ * @param  {String}   vanityName The requested vanity url
+ * @param  {Function} cb         The callback function with the results
+ * @return {void}
  */
 yourls.prototype.vanity = function(longUrl, vanityName, cb) {
 	var query = {
@@ -119,9 +119,9 @@ yourls.prototype.vanity = function(longUrl, vanityName, cb) {
 
 /**
  * Request to expand a single short url or hash
- * @param	{String}	item	The short url or hash to expand
- * @param	{Function}	cb		The callback function with the results
- * @return	{void}
+ * @param  {String}   item The short url or hash to expand
+ * @param  {Function} cb   The callback function with the results
+ * @return {void}
  */
 yourls.prototype.expand = function(items cb) {
 	var query = {
