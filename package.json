@@ -2,7 +2,7 @@
   "name": "yourls",
   "description": "A yourls API library for Node.JS",
   "tags": ["url", "yourls", "shortner", "util"],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Gabriel Preston <gpreston@gmail.com>",
   "contributors": [
     { "name": "Gabriel Preston", "email": "gpreston@gmail.com" }
