@@ -6,11 +6,11 @@ For more information about Yourls and what it can do, visit their [API docs](htt
 
 Note
 ----
-YOURLS is a small set of PHP scripts that will allow you to run your own URL shortening service (a la TinyURL). You can make it private or public, you can pick custom keyword URLs.  This means you will need the URL of yours, or someone else's YOURLS installation as well as an API Signature token from their setup.
+YOURLS is a small set of PHP scripts that will allow you to run your own URL shortening service (a la TinyURL). You can make it private or public, you can pick custom keyword URLs.  This means you will need the URL of your, or someone else's, YOURLS installation as well as an API Signature token for that install.
 
 Installation
 ------------
-This module has not been added to NPM yet.  Eventually you will be able to do `npm install yourls`.
+This module has not been added to NPM yet.  Eventually you will be able to do `npm install yourls`
 
 Until then, install via git by cloning: `git clone https://github.com/gabrielpreston/node-yourls.git /path/to/yourls`
 
