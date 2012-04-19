@@ -1,0 +1,29 @@
+Example script:
+	var Yourls = require('./node-yourls/yourls');
+
+	var yourls_url = 'ph.ly';
+	var yourls_api = '1a40d1e654';
+
+	var yourls = new Yourls(yourls_url, yourls_api);
+
+	yourls.shorten('https://github.com/gabrielpreston/node-yourls', function(error, result) {
+		if (error) {
+			throw error;
+		}
+		console.log(result);
+	});
+
+Output:
+	{ status: 'fail',
+		code: 'error:url',
+		url: 
+			{ keyword: '',
+				url: 'https://github.com/gabrielpreston/node-yourls',
+				title: 'gabrielpreston/node-yourls · GitHub',
+				date: '2012-04-18 15:00:56',
+				ip: '204.236.242.146',
+				clicks: '0' },
+		message: 'https://github.com/gabrielpreston/node-yourls already exists in database',
+		title: 'gabrielpreston/node-yourls · GitHub',
+		shorturl: 'http://ph.ly/dzg-v',
+		statusCode: 200 }
