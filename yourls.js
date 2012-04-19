@@ -123,12 +123,29 @@ yourls.prototype.vanity = function(longUrl, vanityName, cb) {
  * @param  {Function} cb   The callback function with the results
  * @return {void}
  */
-yourls.prototype.expand = function(items cb) {
+yourls.prototype.expand = function(item, cb) {
 	var query = {
 		signature: this.config.api_token,
 		format: this.config.format,
 		shorturl: item,
 		action: 'expand'
+	};
+
+	this._doRequest(this._generateNiceUrl(query), cb);
+};
+
+/**
+ * Request to retrieve stats on a specific short url/hash
+ * @param  {String} item The short url or hash to get stats on
+ * @param  {Function} cb The callback function with the results
+ * @return {void} 
+ */
+yourls.prototype.urlstats = function(item, cb) {
+	var query = {
+		signature: this.config.api_token,
+		format: this.config.format,
+		shorturl: item,
+		action: 'url-stats'
 	};
 
 	this._doRequest(this._generateNiceUrl(query), cb);
