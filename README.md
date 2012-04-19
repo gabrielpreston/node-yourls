@@ -10,9 +10,9 @@ YOURLS is a small set of PHP scripts that will allow you to run your own URL sho
 
 Installation
 ------------
-This module has not been added to NPM yet.  Eventually you will be able to do `npm install yourls`
+Using NPM, `npm install yourls`
 
-Until then, install via git by cloning: `git clone https://github.com/gabrielpreston/node-yourls.git /path/to/yourls`
+Using git, `git clone https://github.com/gabrielpreston/node-yourls.git /path/to/yourls`
 
 Usage
 -----
