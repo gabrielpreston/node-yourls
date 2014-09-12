@@ -1,11 +1,26 @@
 {
   "name": "yourls",
   "description": "A yourls API library for Node.JS",
-  "tags": ["url", "yourls", "shortner", "util"],
+  "tags": [
+    "url",
+    "yourls",
+    "shortner",
+    "util"
+  ],
   "version": "1.0.1",
-  "author": "Gabriel Preston <gpreston@gmail.com>",
+  "author": {
+    "name": "Gabriel Preston",
+    "email": "gpreston@gmail.com"
+  },
   "contributors": [
-    { "name": "Gabriel Preston", "email": "gpreston@gmail.com" }
+    {
+      "name": "Gabriel Preston",
+      "email": "gpreston@gmail.com"
+    },
+	  {
+		  "name": "Robert Michalski",
+		  "email": "robmi87@gmail.com"
+	  }
   ],
   "main": "./yourls",
   "repository": {
@@ -15,5 +30,29 @@
   "scripts": {
     "test": "~/bin/nodeunit test"
   },
-  "engines": { "node": ">=0.4.0 <=0.4.9" }
+  "engines": {
+    "node": ">=0.4.0 <=0.10.28"
+  },
+  "_id": "yourls@1.0.1",
+  "_engineSupported": true,
+  "_npmVersion": "0.2.19",
+  "_nodeVersion": "v0.4.9",
+  "directories": {},
+  "files": [
+    ""
+  ],
+  "_defaultsLoaded": true,
+  "dist": {
+    "shasum": "e98c9fb0f68fecbde33aa2f638659ec61d5205d7",
+    "tarball": "http://registry.npmjs.org/yourls/-/yourls-1.0.1.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "gabrielpreston",
+      "email": "gpreston@gmail.com"
+    }
+  ],
+  "_shasum": "e98c9fb0f68fecbde33aa2f638659ec61d5205d7",
+  "_from": "yourls@*",
+  "_resolved": "https://registry.npmjs.org/yourls/-/yourls-1.0.1.tgz"
 }

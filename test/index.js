@@ -49,8 +49,35 @@ module.exports = {
 		});
 	},
 
+	'stats valid filter and limit': function(test) {
+		var yourls = new Yourls(yourls_url, yourls_api);
+		yourls.stats('top', 10, function(error, result) {
+			test.ifError(error);
+			test.deepEqual(result.statusCode, 200);
+			test.done();
+		});
+	},
+
+	'stats invalid filter and invalid limit': function(test) {
+		var yourls = new Yourls(yourls_url, yourls_api);
+		yourls.stats(null, null, function(error, result) {
+			test.ifError(error);
+			test.deepEqual(result.statusCode, 200);
+			test.done();
+		});
+	},
+
+	'db-stats': function(test) {
+		var yourls = new Yourls(yourls_url, yourls_api);
+		yourls.dbstats(function(error, result) {
+			test.ifError(error);
+			test.deepEqual(result.statusCode, 200);
+			test.done();
+		});
+	}
+
 	// do tests on invalid full url/hash?
 
-}
+};
 
 
