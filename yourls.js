@@ -11,6 +11,7 @@
 
 var url = require('url');
 var http = require('http');
+var https = require('https');
 
 /**
  * The main yourls constructor, takes the yourls api url, api token and additional options
@@ -28,40 +29,64 @@ var yourls = function(yourls_url, api_token, options) {
 	this.config = {
 		api_token: api_token,
 		format: options.format,
-		api_url: yourls_url,
+		api_url: yourls_url.replace(/https?:\/\//gi, ''), // remove http(s):// from url
+		protocol: yourls_url.indexOf('https://') == 0 ? 'https': 'http' // defaults to http
 	};
 
 	return this;
 };
 
 /**
- * Generates the URL object to be passed to the HTTP request for a specific
+ * Returns valid format for action
+ * @param {String} format Format to check
+ * @param {String} action Yourls action (shorturl, expand, etc)
+ * @return {String} Valid format [json, jsonp, xml, simple], json as default
+ */
+yourls.prototype._checkFormat = function(format, action) {
+	var valid_format = 'json';
+	// valid for all
+	if( ['json', 'jsonp', 'xml'].indexOf(format) >= 0 ) {
+		valid_format = format;
+	}
+	else if( format === 'simple' && ['shorturl', 'expand'].indexOf(action)  >= 0) {
+		valid_format = 'simple';
+	}
+
+	return valid_format;
+};
+
+/**
+ * Generates the URL object to be passed to the HTTP(S) request for a specific
  * API method call
  * @param  {Object} query The query object
  * @return {Object}       The URL object for this request
  */
 yourls.prototype._generateNiceUrl = function(query) {
 	var result = url.parse(url.format({
-		protocol: 'http',
+		protocol: this.config.protocol,
 		hostname: this.config.api_url,
 		pathname: '/yourls-api.php',
 		query: query
 	}));
 	// HACK: Fixes the redirection issue in node 0.4.x
-	if (!result.path) { result.path = result.pathname + result.search; }
+	if( !result.path ) {
+		result.path = result.pathname + result.search;
+	}
 
 	return result;
 };
 
 /**
- * Function to do a HTTP Get request with the current query
+ * Function to do a HTTP(S) Get request with the current query
  * @param  {Object}   request_query The current query object
  * @param  {Function} cb            The callback function for the returned data
  * @return {void}
  */
 yourls.prototype._doRequest = function(request_query, cb) {
 	// Pass the requested URL as an object to the get request
-	http.get(request_query, function(res) {
+	var protocol = this.config.protocol === 'https' ? https: http;
+	//var protocol = require(this.config.protocol);
+	protocol.get(request_query, function(res) {
 			var data = [];
 			res
 			.on('data', function(chunk) { data.push(chunk); })
@@ -90,10 +115,10 @@ yourls.prototype._doRequest = function(request_query, cb) {
 yourls.prototype.shorten = function(longUrl, cb) {
 	var query = {
 		signature: this.config.api_token,
-		format: this.config.format,
 		url: longUrl,
 		action: 'shorturl'
 	};
+	query.format = this._checkFormat(this.config.format, query.action);
 
 	this._doRequest(this._generateNiceUrl(query), cb);
 };
@@ -108,11 +133,11 @@ yourls.prototype.shorten = function(longUrl, cb) {
 yourls.prototype.vanity = function(longUrl, vanityName, cb) {
 	var query = {
 		signature: this.config.api_token,
-		format: this.config.format,
 		url: longUrl,
 		keyword: vanityName,
 		action: 'shorturl'
 	};
+	query.format = this._checkFormat(this.config.format, query.action);
 
 	this._doRequest(this._generateNiceUrl(query), cb);
 };
@@ -126,10 +151,10 @@ yourls.prototype.vanity = function(longUrl, vanityName, cb) {
 yourls.prototype.expand = function(item, cb) {
 	var query = {
 		signature: this.config.api_token,
-		format: this.config.format,
 		shorturl: item,
 		action: 'expand'
 	};
+	query.format = this._checkFormat(this.config.format, query.action);
 
 	this._doRequest(this._generateNiceUrl(query), cb);
 };
@@ -138,15 +163,50 @@ yourls.prototype.expand = function(item, cb) {
  * Request to retrieve stats on a specific short url/hash
  * @param  {String} item The short url or hash to get stats on
  * @param  {Function} cb The callback function with the results
- * @return {void} 
+ * @return {void}
  */
 yourls.prototype.urlstats = function(item, cb) {
 	var query = {
 		signature: this.config.api_token,
-		format: this.config.format,
 		shorturl: item,
 		action: 'url-stats'
 	};
+	query.format = this._checkFormat(this.config.format, query.action);
+
+	this._doRequest(this._generateNiceUrl(query), cb);
+};
+
+/**
+ * Request stats about your links
+ * @param  {String} limit  Maximum number of links to return
+ * @param  {String} filter  The filter to apply to stats [top, bottom, rand, last]
+ * @param  {Function} cb The callback function with the results
+ * @return {void}
+ */
+yourls.prototype.stats = function(limit, filter, cb) {
+	var max = parseInt(limit);
+	var query = {
+		signature: this.config.api_token,
+		action: 'url-stats',
+		filter: ["top", "bottom" , "rand", "last"].indexOf(filter) >= 0 ? filter: 'top', // retrive top urls by default
+		limit: max > 1 ? max: 1
+	};
+	query.format = this._checkFormat(this.config.format, query.action);
+
+	this._doRequest(this._generateNiceUrl(query), cb);
+};
+
+/**
+ * Request global link and click count
+ * @param  {Function} cb The callback function with the results
+ * @return {void}
+ */
+yourls.prototype.dbstats = function(cb) {
+	var query = {
+		signature: this.config.api_token,
+		action: 'db-stats'
+	};
+	query.format = this._checkFormat(this.config.format, query.action);
 
 	this._doRequest(this._generateNiceUrl(query), cb);
 };

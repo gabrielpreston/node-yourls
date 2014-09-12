@@ -8,11 +8,18 @@ Note
 ----
 YOURLS is a small set of PHP scripts that will allow you to run your own URL shortening service (a la TinyURL). You can make it private or public, you can pick custom keyword URLs.  This means you will need the URL of your, or someone else's, YOURLS installation as well as an API Signature token for that install.
 
+Works over both http and https.
+
 Installation
 ------------
-Using NPM, `npm install yourls`
 
-Using git, `git clone https://github.com/gabrielpreston/node-yourls.git /path/to/yourls`
+**with Node.js**
+
+`yourls.js` is available on [NPM](https://www.npmjs.org/package/yourls)
+
+You can install it with the following command:
+
+    npm install yourls
 
 Usage
 -----
@@ -30,14 +37,16 @@ Usage
 		console.log(result);
 	});
 
-	
+
 Tests
 -----
 To run tests type `npm test`
-			
+
 Yourls Features
 ---------------
 * shorten
 * vanity
 * expand
 * urlstats
+* stats
+* dbstats
